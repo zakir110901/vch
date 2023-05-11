@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Students</title>
+</head>
+
+<body>
+
+    {% if mess_count == 0 %}
+    <div class="container text-center">
+        <div class="px-0 py-0 alert alert-warning" role="alert">
+            <h2 class="text-center">{{message}}</h2>
+        </div>
+        <a href="/media/{{x.0.File}}" class="btn btn-lg btn-primary text-center">Download</a>
+    </div>
+    {% endif %}
+
+    {% if mess_count == 1 %}
+    <div class="container ">
+        <div class="alert alert-warning py-2" role="alert">
+            <h2 class="text-center">{{message}}</h2>
+        </div>
+        {% load crispy_forms_tags %}
+        <form method="POST" action="addstudent" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <button class="btn btn-primary" type="submit">Submit</button>
+        </form>
+    </div>
+    {% endif %}
+
+    {% if mess_count == 2 %}
+    <div class="container ">
+        <div class="alert alert-danger py-2" role="alert">
+            <h2 class="text-center">{{message}}</h2>
+        </div>
+        {% load crispy_forms_tags %}
+        <form method="POST" action="addstudent" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <button class="btn btn-primary" type="submit">Submit</button>
+        </form>
+    </div>
+    {% endif %}
+</body>
+
+</html>

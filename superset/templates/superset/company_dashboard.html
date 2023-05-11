@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Company Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+</head>
+
+<body>
+    <style>
+        body {
+            background-color: rgba(245, 245, 245, 0.815);
+        }
+
+        @media (min-width: 991.98px) {
+            main {
+                padding-left: 150px;
+                padding-top: 85px;
+            }
+        }
+
+        main {
+            padding-top: 85px;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            padding: 50px 0 0;
+            /* Height of navbar */
+            box-shadow: 7px 0px 5px rgb(224, 221, 221);
+            width: 150px;
+            z-index: 600;
+        }
+
+        @media (max-width: 991.98px) {
+            .sidebar {
+                width: 100%;
+            }
+        }
+
+        .sidebar .active {
+            border-radius: 5px;
+            box-shadow: 7px 0px 5px rgb(224, 221, 221);
+        }
+
+        /* Scrollable contents if viewport is shorter than content. */
+        /* .sidebar-sticky {
+          position: relative;
+          top: 0;
+          height: calc(100vh - 48px);
+          padding-top: 0.5rem;
+          overflow-x: hidden;
+          overflow-y: auto;
+        } */
+
+        #main-navbar {
+            box-shadow: 0px 7px 5px rgb(224, 221, 221);
+            height: 65px;
+        }
+
+        #btn:hover {
+            box-shadow: 3px 5px grey;
+        }
+    </style>
+    <!--Main Navigation-->
+    <header>
+        <!-- Sidebar -->
+        <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
+            <div class="position-sticky">
+                <div class="list-group list-group-flush mx-3 mt-4" id="myDIV">
+                    <a href="{% url 'createjobs' %}" class="list-group-item list-group-item-action py-2 ripple pt-3"
+                        id="btn1" style="text-align: center;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+                            class="bi bi-journal-code" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                d="M8.646 5.646a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1 0 .708l-2 2a.5.5 0 0 1-.708-.708L10.293 8 8.646 6.354a.5.5 0 0 1 0-.708zm-1.292 0a.5.5 0 0 0-.708 0l-2 2a.5.5 0 0 0 0 .708l2 2a.5.5 0 0 0 .708-.708L5.707 8l1.647-1.646a.5.5 0 0 0 0-.708z" />
+                            <path
+                                d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z" />
+                            <path
+                                d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z" />
+                        </svg><br><span style="font-size: smaller;">Create Job</span>
+                    </a>
+                    <a href="{% url 'viewjobs' %}" class="list-group-item list-group-item-action py-2 ripple pt-3"
+                        id="btn1" style="text-align: center;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+                            class="bi bi-journal-medical" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                d="M8 4a.5.5 0 0 1 .5.5v.634l.549-.317a.5.5 0 1 1 .5.866L9 6l.549.317a.5.5 0 1 1-.5.866L8.5 6.866V7.5a.5.5 0 0 1-1 0v-.634l-.549.317a.5.5 0 1 1-.5-.866L7 6l-.549-.317a.5.5 0 0 1 .5-.866l.549.317V4.5A.5.5 0 0 1 8 4zM5 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z" />
+                            <path
+                                d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z" />
+                            <path
+                                d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z" />
+                        </svg><br><span style="font-size: smaller;">View Job Profile</span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+        <!-- Sidebar -->
+
+        <!-- Navbar -->
+        <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
+            <!-- Container wrapper -->
+            <div class="container-fluid">
+                <!-- Toggle button -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu"
+                    aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="bi bi-menu-button-wide"></i>
+                </button>
+
+                <!-- Brand -->
+                <a class="navbar-brand mt-1" href="{% url 'company_dashboard' %}" style="padding-left: 2.5%;">
+                    <img src="https://bcassetcdn.com/public/blog/wp-content/uploads/2021/12/08142321/3d-cube-tech-logo-design-by-connor-fowler-dribbble-1024x1024.jpg"
+                        height="45px" alt="" loading="lazy" />
+                </a>
+                <!-- Right links -->
+                <ul class="navbar-nav ms-auto d-flex flex-row">
+                    <!-- Notification dropdown -->
+                    <!-- <li class="nav-item dropdown p-lg-2">
+                      <a class="nav-link me-3 me-lg-0 mt-1" href="#" id="navbarDropdownMenuLink" role="button"
+                        data-mdb-toggle="dropdown" aria-expanded="false">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="currentColor" class="bi bi-bell-fill"
+                          viewBox="0 0 16 16">
+                          <path
+                            d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z" />
+                        </svg>
+                        <span class="position-absolute translate-middle badge rounded-pill bg-danger">0</span>
+                      </a>
+                    </li> -->
+                    <li class="item dropdown">
+                        <a class="nav-link dropdown-toggle hidden-arrow d-flex align-items-center" href="#"
+                            id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                                class="bi bi-person-circle mt-1" viewBox="0 0 16 16">
+                                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                                <path fill-rule="evenodd"
+                                    d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
+                            </svg>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+                            <li><a class="dropdown-item" href="{% url 'company_profile' %}">My profile</a></li>
+                            <li><a class="dropdown-item" href="{% url 'logoutuser' %}">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!-- Container wrapper -->
+        </nav>
+        <!-- Navbar -->
+    </header>
+    <!--Main Navigation-->
+
+    <!--Main layout-->
+    <main>
+        <div class="container">
+            {% if count == 0 %}
+            <div class="container">
+                <h2 class="text-center">Welcome {{y}}</h2>
+            </div>
+            {% endif %}
+
+            {% if count == 1 %}
+            <div class="container">
+                <div class="px-0 py-0 alert alert-warning" role="alert">
+                    <h2 class="text-center">Create Job Profile</h2>
+                </div>
+                {% load crispy_forms_tags %}
+                <form method="POST" action="">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    <div class="dropdown">
+                        <button class="dropdown-toggle btn btn-warning" type="button" id="dropdownMenuButton"
+                            data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                            data-bs-auto-close="outside">
+                            Select Colleges
+                        </button>
+                        <div class="dropdown-menu scrollable-menu" aria-labelledby="dropdownMenuButton" id="dp">
+                            <input type="checkbox" class="mx-2 my-1" onclick="toggle(this)" />
+                            <label for="college" class="mx-1">Select All</label><br />
+                            {% for i in x %}
+                            <input type="checkbox" class="mx-2 my-1" id="college" name="college" value="{{i}}"
+                                required />
+                            <label for="college" class="mx-1">{{i}}</label><br />
+                            {% endfor%}
+                        </div>
+                    </div>
+                    <style>
+                        #dp {
+                            height: auto;
+                            max-height: 70px;
+                            overflow-x: hidden;
+                        }
+                    </style>
+                    <script>
+                        function toggle(source) {
+                            var checkboxes = document.querySelectorAll(
+                                "input[type='checkbox']"
+                            );
+                            for (var i = 0; i < checkboxes.length; i++) {
+                                if (checkboxes[i] != source) {
+                                    checkboxes[i].checked = source.checked;
+                                }
+                            }
+                        }
+                    </script>
+                    <button class="btn btn-primary mt-2" type="submit">Submit</button>
+                </form>
+            </div>
+            {% endif %}
+
+            {% if count == 2 %}
+            <div class="container">
+                <h2 class="text-center">{{msg}}</h2>
+                <div class="container mt-4">
+                    <div class="row">
+                        {% for i in x %}
+                        <div class="card" style="width: 25rem; margin-right: 20px; margin-bottom: 20px; padding: 0%;">
+                            <div class="card-header">
+                                <b>Name :</b> {{i.Company_Name}}
+                            </div>
+                            <div class="card-body">
+                                <b>Job Role :</b> {{i.job_role}}<br>
+                                <b>CTC :</b> {{i.CTC}}<br>
+                                <b>Location :</b> {{i.Location}}
+                                <div class="mt-2 text-center">
+                                    <a href="{% url 'applicants' i.job_id %}" class="btn btn-success">Applicants</a>
+                                    <a href="{% url 'editjobs' i.job_id %}" class="btn btn-warning">Edit Job</a>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+            {% if count == 3 %}
+            <div class="container mt-4">
+                <h2 class="text-center">Edit Your Job Profile</h2>
+                <div class="container">
+                    {% load crispy_forms_tags %}
+                    <form method="POST" action="">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        <button class="btn btn-success mt-1 mb-2" type="submit">
+                            Submit
+                        </button>
+                        <a href="{% url 'cancel' %}" class="btn btn-danger mt-1 mb-2">Cancel</a>
+                    </form>
+                </div>
+            </div>
+            {% endif %}
+
+            {% if count == 4 %}
+            <div class="container mt-4">
+                <h2 class="text-center">{{msg1}}</h2>
+                <div class="container">
+                    <div class="row d-flex justify-content-center container">
+                        {% for i in x %}
+                        <div class="card col-sm-3 mx-1 my-1" style="padding: 0">
+                            <div class="card-header">{{i.College}}</div>
+                            <div class="card-body">
+                                <h4 class="card-title">{{i.Full_Name}}</h4>
+                                <p class="card-text">{{i.Email_ID}}</p>
+                                <div class="width max-width">
+                                    <a href="{% url 'applicantdetails' id i.Email_ID %}" class="btn btn-success">View
+                                        Details</a>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        <h2 class="text-center mt-2">{{msg2}}</h2>
+                        {% for i in y %}
+                        <div class="card col-sm-3 mx-1 my-1" style="padding: 0">
+                            <div class="card-header">{{i.College}}</div>
+                            <div class="card-body">
+                                <h4 class="card-title">{{i.Full_Name}}</h4>
+                                <p class="card-text">{{i.Email_ID}}</p>
+                                <div class="width max-width">
+                                    <a href="{% url 'applicantdetails' id i.Email_ID %}" class="btn btn-success">View
+                                        Details</a>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+            {% if count == 5 %}
+            <div class="container mt-4">
+                <h2 class="text-center">{{msg}}</h2>
+                <div class="container">
+                    <div class="card mb-2 col-sm-12 mx-1">
+                        <div class="card-body">
+                            <h5 class="card-title">Name : {{x.Full_Name}}</h5>
+                            <hr>
+                            <h5 class="card-text">Roll No. : {{x.College_Roll_No}}</h5>
+                            <hr>
+                            <h5 class="card-text">Email ID : {{x.Email_ID}}</h5>
+                            <hr>
+                            <h5 class="card-text">DOB : {{x.DOB}}</h5>
+                            <hr>
+                            <h5 class="card-text">Contact : {{x.Contact_Number}}</h5>
+                            <hr>
+                            <h5 class="card-text">Gender : {{x.Gender}}</h5>
+                            <hr>
+                            <h5 class="card-text">Category : {{x.Category}}</h5>
+                            <hr>
+                            <h5 class="card-text">College : {{x.College}}</h5>
+                            <hr>
+                            <h5 class="card-text">Passing Year : {{x.Passing_Year}}</h5>
+                            <hr>
+                            <h5 class="card-text">Course : {{x.Course}}</h5>
+                            <hr>
+                            <h5 class="card-text">Branch : {{x.Branch}}</h5>
+                            <hr>
+                            <h5 class="card-text">Xth Percentage : {{x.Xth_Percentage}}</h5>
+                            <hr>
+                            <h5 class="card-text">XIIth Percentage : {{x.XIIth_Percentage}}</h5>
+                            <hr>
+                            <h5 class="card-text">College CGPA : {{x.College_CGPA}}</h5>
+                            <hr>
+                            <h5 class="card-text">Skills : {{x.Skills}}</h5>
+                            <hr>
+                            <h5 class="card-text">Profile Photo : <a href="/media/{{x.Photo}}"
+                                    style="color: black; text-decoration: none;"> Click To View</a></h5>
+                            <hr>
+                            <h5 class="card-text">College Id Card : <a href="/media/{{x.College_Id_Card}}"
+                                    style="color: black;text-decoration: none;"> Click To View</a></h5>
+                            <hr>
+                            <h5 class="card-text">Xth Marksheet : <a href="/media/{{x.Xth_Marksheet}}"
+                                    style="color: black;text-decoration: none;"> Click To View</a></h5>
+                            <hr>
+                            <h5 class="card-text">XIIth Marksheet : <a href="/media/{{x.XIIth_Marksheet}}"
+                                    style="color: black;text-decoration: none;"> Click To View</a></h5>
+                            <hr>
+                            <h5 class="card-text">College Marksheets : <a href="/media/{{x.College_Marksheets}}"
+                                    style="color: black;text-decoration: none;"> Click To View</a></h5>
+                            <hr>
+                            <form method="POST" action="">
+                                {% csrf_token %}
+                                <select class="form-control" name="choice" id="choice">
+                                    {% if k.Application_status == 'P' %}
+                                    <option value="P" selected>Pending</option>
+                                    <option value="A">Accept</option>
+                                    <option value="R">Reject</option>
+                                    {% endif %}
+                                    {% if k.Application_status == 'A' %}
+                                    <option value="P">Pending</option>
+                                    <option value="A" selected>Accept</option>
+                                    <option value="R">Reject</option>
+                                    {% endif %}
+                                </select>
+                                <button class="btn btn-warning mt-2" id="btn" name="btn"
+                                    style="color: red;background-color: yellow;">Submit</button>
+                            </form>
+                        </div>
+                    </div>
+                    <style>
+                        #btn:hover {
+                            box-shadow: 3px 5px grey;
+                        }
+                    </style>
+                </div>
+            </div>
+            {% endif %}
+
+            {% if count == 6 %}
+            <div class="container">
+                <h2 class="text-center">My Profile</h2>
+                {% load crispy_forms_tags %}
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    {{ y|crispy }}
+                    <div>
+                        <button class="btn btn-primary mt-2 mb-3">Submit</button>
+                        <a class="btn btn-danger mt-2 mb-3" href="{% url 'company_dashboard' %}">Cancel</a>
+                    </div>
+                </form>
+            </div>
+            {% endif %}
+        </div>
+    </main>
+    <!--Main layout-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous">
+        </script>
+</body>
+
+</html>

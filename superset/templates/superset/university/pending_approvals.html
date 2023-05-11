@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pending Approvals</title>
+</head>
+
+<body>
+    {% if mess_count == 0 %}
+    <div class="container">
+        <h1 class="text-center">Pending Approvals</h1>
+        <div class="container mt-4">
+            <div class="row">
+                {% for i in x %}
+                <div class="card" style="width: 25rem; margin-right: 20px; margin-bottom: 20px; padding: 0%;">
+                    <div class="card-header">
+                        <b>Name :</b> {{i.Full_Name}}
+                    </div>
+                    <div class="card-body row g-0">
+                        <div class="col-md-4"><input type="image" src="{{i.Photo.url}} " height="90" width="85">
+                        </div>
+                        <div class="col-md-8"><b>Roll No. :</b> {{i.College_Roll_No}}<br>
+                            <b>Passing Year:</b> {{i.Passing_Year}}<br>
+                            <b>Email :</b> {{i.Email_ID}}
+                        </div>
+                        <div class="container text-center">
+                            <a href="{% url 'approve' i.Email_ID %}" class="btn btn-primary">View Details</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    {% if mess_count == 1 %}
+    <div class="alert alert-warning py-2" role="alert">
+        <h2 class="text-center">{{message}}</h2>
+    </div>
+    {% endif %}
+
+</body>
+
+</html>

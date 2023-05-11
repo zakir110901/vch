@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Details</title>
+</head>
+
+<body>
+    <style>
+        /* .card-text {
+            font-weight: bold;
+        } */
+        .card-body h5 {
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+    {% if btn_count == 1 %}
+    <div class="container">
+        <div class="card mb-3 col-sm-12 mx-1" style="background-color: rgba(245, 245, 245, 0.815);">
+            <div class="card-header" style="background-color: rgba(245, 245, 245, 0.815);">
+                <h1 class="text-center">Student Details</h1>
+            </div>
+            <div class="card-body">
+                <h5 class="card-text"><b>Name :</b> {{x.Full_Name}}</h5>
+                <hr>
+                <h5 class="card-text"><b>Roll No. :</b> {{x.College_Roll_No}}</h5>
+                <hr>
+                <h5 class="card-text"><b>Email ID : </b>{{x.Email_ID}}</h5>
+                <hr>
+                <h5 class="card-text"><b>DOB :</b> {{x.DOB}}</h5>
+                <hr>
+                <h5 class="card-text"><b>Contact :</b> {{x.Contact_Number}}</h5>
+                <hr>
+                <h5 class="card-text"><b>Gender :</b> {{x.Gender}}</h5>
+                <hr>
+                <h5 class="card-text"><b>Category :</b> {{x.Category}}</h5>
+                <hr>
+                <h5 class="card-text"><b>College :</b> {{x.College}}</h5>
+                <hr>
+                <h5 class="card-text"><b>Passing Year :</b> {{x.Passing_Year}}</h5>
+                <hr>
+                <h5 class="card-text"><b>Course :</b> {{x.Course}}</h5>
+                <hr>
+                <h5 class="card-text"><b>Branch :</b> {{x.Branch}}</h5>
+                <hr>
+                <h5 class="card-text"><b>Xth Percentage :</b> {{x.Xth_Percentage}}</h5>
+                <hr>
+                <h5 class="card-text"><b>XIIth Percentage :</b> {{x.XIIth_Percentage}}</h5>
+                <hr>
+                <h5 class="card-text"><b>College CGPA :</b> {{x.College_CGPA}}</h5>
+                <hr>
+                <h5 class="card-text"><b>Skills :</b> {{x.Skills}}</h5>
+                <hr>
+                <h5 class="card-text"><b>Profile Photo :</b> <a href="/media/{{x.Photo}}"
+                        style=" text-decoration: none;">
+                        Click To View</a></h5>
+                <hr>
+                <h5 class="card-text"><b>College Id Card :</b> <a href="/media/{{x.College_Id_Card}}"
+                        style="text-decoration: none;"> Click To View</a></h5>
+                <hr>
+                <h5 class="card-text"><b>Xth Marksheet :</b> <a href="/media/{{x.Xth_Marksheet}}"
+                        style="text-decoration: none;"> Click To View</a></h5>
+                <hr>
+                <h5 class="card-text"><b>XIIth Marksheet :</b> <a href="/media/{{x.XIIth_Marksheet}}"
+                        style="text-decoration: none;"> Click To View</a></h5>
+                <hr>
+                <h5 class="card-text"><b>College Marksheets :</b> <a href="/media/{{x.College_Marksheets}}"
+                        style="text-decoration: none;"> Click To View</a></h5>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    {% if btn_count == 0 %}
+    <div class="container">
+        <div class="card mb-3 col-sm-12 mx-1" style="background-color: rgba(245, 245, 245, 0.815);">
+            <div class="card-header" style="background-color: rgba(245, 245, 245, 0.815);">
+                <h1 class="text-center">Student Details</h1>
+            </div>
+            <div class="card-body" id="yp">
+                <h5 class="card-text"><b>Name :</b> {{x.Full_Name}}</h5>
+                <hr>
+                <h5 class="card-text"><b>Roll No. :</b> {{x.College_Roll_No}}</h5>
+                <hr>
+                <h5 class="card-text"><b>Email ID : </b>{{x.Email_ID}}</h5>
+                <hr>
+                <h5 class="card-text"><b>DOB :</b> {{x.DOB}}</h5>
+                <hr>
+                <h5 class="card-text"><b>Contact :</b> {{x.Contact_Number}}</h5>
+                <hr>
+                <h5 class="card-text"><b>Gender :</b> {{x.Gender}}</h5>
+                <hr>
+                <h5 class="card-text"><b>Category :</b> {{x.Category}}</h5>
+                <hr>
+                <h5 class="card-text"><b>College :</b> {{x.College}}</h5>
+                <hr>
+                <h5 class="card-text"><b>Passing Year :</b> {{x.Passing_Year}}</h5>
+                <hr>
+                <h5 class="card-text"><b>Course :</b> {{x.Course}}</h5>
+                <hr>
+                <h5 class="card-text"><b>Branch :</b> {{x.Branch}}</h5>
+                <hr>
+                <h5 class="card-text"><b>Xth Percentage :</b> {{x.Xth_Percentage}}</h5>
+                <hr>
+                <h5 class="card-text"><b>XIIth Percentage :</b> {{x.XIIth_Percentage}}</h5>
+                <hr>
+                <h5 class="card-text"><b>College CGPA :</b> {{x.College_CGPA}}</h5>
+                <hr>
+                <h5 class="card-text"><b>Skills :</b> {{x.Skills}}</h5>
+                <hr>
+                <h5 class="card-text"><b>Profile Photo :</b> <a href="/media/{{x.Photo}}"
+                        style=" text-decoration: none;">
+                        Click To View</a></h5>
+                <hr>
+                <h5 class="card-text"><b>College Id Card :</b> <a href="/media/{{x.College_Id_Card}}"
+                        style="text-decoration: none;"> Click To View</a></h5>
+                <hr>
+                <h5 class="card-text"><b>Xth Marksheet :</b> <a href="/media/{{x.Xth_Marksheet}}"
+                        style="text-decoration: none;"> Click To View</a></h5>
+                <hr>
+                <h5 class="card-text"><b>XIIth Marksheet :</b> <a href="/media/{{x.XIIth_Marksheet}}"
+                        style="text-decoration: none;"> Click To View</a></h5>
+                <hr>
+                <h5 class="card-text"><b>College Marksheets :</b> <a href="/media/{{x.College_Marksheets}}"
+                        style="text-decoration: none;"> Click To View</a></h5>
+                <hr>
+                <form method="POST" action="">
+                    {% csrf_token %}
+                    <button class="btn btn-info" id="btn" name="btn" style="color: white"
+                        value="{{x.Email_ID}}">Approve</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</body>
+
+</html>

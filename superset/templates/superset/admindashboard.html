@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous" />
+  <!-- Option 1: Include in HTML -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
+</head>
+
+<body>
+  <style>
+    body {
+      background-color: #fbfbfb;
+    }
+
+    @media (min-width: 991.98px) {
+      main {
+        padding-left: 240px;
+      }
+    }
+
+    /* Sidebar */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      padding: 58px 0 0;
+      /* Height of navbar */
+      box-shadow: 0 2px 5px 0 rgb(0 0 0 / 5%), 0 2px 10px 0 rgb(0 0 0 / 5%);
+      width: 240px;
+      z-index: 600;
+    }
+
+    @media (max-width: 991.98px) {
+      .sidebar {
+        width: 100%;
+      }
+    }
+
+    .sidebar .active {
+      border-radius: 5px;
+      box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%);
+    }
+
+    .sidebar-sticky {
+      position: relative;
+      top: 0;
+      height: calc(100vh - 48px);
+      padding-top: 0.5rem;
+      overflow-x: hidden;
+      overflow-y: auto;
+      /* Scrollable contents if viewport is shorter than content. */
+    }
+  </style>
+  <!--Main Navigation-->
+  <header>
+    <!-- Sidebar -->
+    <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
+      <div class="position-sticky">
+        <div class="list-group list-group-flush mx-3 mt-4" id="myDIV">
+          <a href="{% url 'Ustudents'%}" class="list-group-item list-group-item-action py-2 ripple" id="btn1">
+            <i class="fas fa-tachometer-alt fa-fw me-3"></i><span>University Students</span>
+          </a>
+          <a href="#" class="list-group-item list-group-item-action py-2 ripple" id="btn2">
+            <i class="fas fa-chart-area fa-fw me-3"></i><span>Webiste traffic</span>
+          </a>
+          <a href="#" class="list-group-item list-group-item-action py-2 ripple" id="btn3">
+            <i class="fas fa-lock fa-fw me-3"></i><span>Password</span></a>
+          <a href="#" class="list-group-item list-group-item-action py-2 ripple" id="btn4">
+            <i class="fas fa-chart-line fa-fw me-3"></i><span>Analytics</span></a>
+          <a href="#" class="list-group-item list-group-item-action py-2 ripple" id="btn5">
+            <i class="fas fa-chart-pie fa-fw me-3"></i><span>SEO</span>
+          </a>
+          <a href="#" class="list-group-item list-group-item-action py-2 ripple" id="btn6">
+            <i class="fas fa-chart-bar fa-fw me-3"></i><span>Orders</span>
+          </a>
+          <a href="#" class="list-group-item list-group-item-action py-2 ripple" id="btn7">
+            <i class="fas fa-globe fa-fw me-3"></i><span>International</span>
+          </a>
+          <a href="#" class="list-group-item list-group-item-action py-2 ripple" id="btn8">
+            <i class="fas fa-building fa-fw me-3"></i><span>Partners</span>
+          </a>
+          <a href="#" class="list-group-item list-group-item-action py-2 ripple" id="btn9">
+            <i class="fas fa-calendar fa-fw me-3"></i><span>Calendar</span>
+          </a>
+          <a href="#" class="list-group-item list-group-item-action py-2 ripple" id="btn10">
+            <i class="fas fa-users fa-fw me-3"></i><span>Users</span>
+          </a>
+          <a href="#" class="list-group-item list-group-item-action py-2 ripple" id="btn11">
+            <i class="fas fa-money-bill fa-fw me-3"></i><span>Sales</span>
+          </a>
+        </div>
+      </div>
+    </nav>
+    <!-- Sidebar -->
+
+    <!-- Navbar -->
+    <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
+      <!-- Container wrapper -->
+      <div class="container-fluid">
+        <!-- Toggle button -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu"
+          aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+          <i class="bi bi-menu-button-wide"></i>
+        </button>
+
+        <!-- Brand -->
+        <a class="navbar-brand mt-1" href="#" style="padding-left: 3%">
+          <img
+            src="data:image/png;base64,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"
+            height="45px" alt="" loading="lazy" />
+        </a>
+        <!-- Right links -->
+        <ul class="navbar-nav ms-auto d-flex flex-row">
+          <!-- Notification dropdown -->
+          <li class="nav-item dropdown">
+            <a class="nav-link me-3 me-lg-0 mt-1" href="#" id="navbarDropdownMenuLink" role="button"
+              data-mdb-toggle="dropdown" aria-expanded="false">
+              <i class="bi bi-bell-fill"></i>
+              <span class="position-absolute translate-middle badge rounded-pill bg-danger">0</span>
+            </a>
+          </li>
+          <!-- For empty space between icons -->
+          <li class="nav-item dropdown">
+            <a class="nav-link me-3 me-lg-0" href="#" id="navbarDropdown" role="button" data-mdb-toggle="dropdown"
+              aria-expanded="false">
+            </a>
+          </li>
+
+          <!-- Avatar -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle hidden-arrow d-flex align-items-center" href="#"
+              id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                class="bi bi-person-circle mt-1" viewBox="0 0 16 16">
+                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                <path fill-rule="evenodd"
+                  d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
+              </svg>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+              <li><a class="dropdown-item" href="#">My profile</a></li>
+              <li>
+                <a class="dropdown-item" href="{% url 'logoutuser' %}">Logout</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <!-- Container wrapper -->
+    </nav>
+    <!-- Navbar -->
+  </header>
+  <!--Main Navigation-->
+
+  <!--Main layout-->
+  <main style="margin-top: 58px">
+    <div class="container pt-4">
+      {% if count == 0 %}
+      <div class="container">
+        <h2>Welcome Admin</h2>
+      </div>
+      {% endif %}
+
+      {% if count == 1 %}
+      <div class="container">
+        <h2 class="text-center">University Students</h2>
+        <div class="container">
+          <div class="row d-flex content-justify-center container">
+            {% for i in x %}
+            <div class="card mb-2 col-sm-5 mx-1">
+              <div class="card-body">
+                <h5 class="card-title text-center">{{i.College_Name}}</h5>
+              </div>
+              <div class="card-body">
+                <a href="/media/{{i.File}}" class="card-link">Download CSV</a>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+  </main>
+
+  <!--Main layout-->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+    crossorigin="anonymous"></script>
+  <script>
+    // Add active class to the current button (highlight it)
+    var header = document.getElementById("myDIV");
+    var btns = header.getElementsByClassName("list-group-item");
+    for (var i = 0; i < btns.length; i++) {
+      btns[i].addEventListener("click", function () {
+        var current = document.getElementsByClassName("active");
+        if (current.length === 0) {
+          this.className += " active";
+        } else {
+          current[0].className = current[0].className.replace(" active", "");
+          this.className += " active";
+        }
+      });
+    }
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous" />
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
+</head>
+
+<body>
+    <style>
+        body {
+            background-color: rgba(245, 245, 245, 0.815);
+        }
+
+        @media (min-width: 991.98px) {
+            main {
+                padding-left: 150px;
+                padding-top: 85px;
+            }
+        }
+
+        main {
+            padding-top: 85px;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            padding: 50px 0 0;
+            /* Height of navbar */
+            box-shadow: 7px 0px 5px rgb(224, 221, 221);
+            width: 150px;
+            z-index: 600;
+        }
+
+        @media (max-width: 991.98px) {
+            .sidebar {
+                width: 100%;
+            }
+        }
+
+        .sidebar .active {
+            border-radius: 5px;
+            box-shadow: 7px 0px 5px rgb(224, 221, 221);
+        }
+
+        /* Scrollable contents if viewport is shorter than content. */
+        /* .sidebar-sticky {
+            position: relative;
+            top: 0;
+            height: calc(100vh - 48px);
+            padding-top: 0.5rem;
+            overflow-x: hidden;
+            overflow-y: auto;
+        } */
+
+        #main-navbar {
+            box-shadow: 0px 7px 5px rgb(224, 221, 221);
+            height: 65px;
+        }
+
+        #btn:hover {
+            box-shadow: 3px 5px grey;
+        }
+
+        h4 {
+            font-weight: normal;
+        }
+    </style>
+    <!--Main Navigation-->
+    <header>
+        <!-- Sidebar -->
+        <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse bg-white">
+            <div class="position-sticky">
+                <div class="list-group list-group-flush mx-3 mt-4" id="myDIV">
+                    <a href="{% url 'studentjobs' %}" class="list-group-item list-group-item-action py-2 ripple pt-3"
+                        id="btn1" style="text-align: center;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+                            class="bi bi-bookmark-star" viewBox="0 0 16 16">
+                            <path
+                                d="M7.84 4.1a.178.178 0 0 1 .32 0l.634 1.285a.178.178 0 0 0 .134.098l1.42.206c.145.021.204.2.098.303L9.42 6.993a.178.178 0 0 0-.051.158l.242 1.414a.178.178 0 0 1-.258.187l-1.27-.668a.178.178 0 0 0-.165 0l-1.27.668a.178.178 0 0 1-.257-.187l.242-1.414a.178.178 0 0 0-.05-.158l-1.03-1.001a.178.178 0 0 1 .098-.303l1.42-.206a.178.178 0 0 0 .134-.098L7.84 4.1z" />
+                            <path
+                                d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z" />
+                        </svg><br><span style="font-size: smaller;">Posted Jobs</span>
+                    </a>
+                    <a href="{% url 'myjobs'  %}" class="list-group-item list-group-item-action py-2 ripple pt-3"
+                        id="btn2" style="text-align: center;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor"
+                            class="bi bi-bookmark-check" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                d="M10.854 5.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0z" />
+                            <path
+                                d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z" />
+                        </svg><br><span style="font-size: smaller;">Applied Jobs</span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+        <!-- Sidebar -->
+
+        <!-- Navbar -->
+        <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
+            <!-- Container wrapper -->
+            <div class="container-fluid">
+                <!-- Toggle button -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu"
+                    aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="bi bi-menu-button-wide"></i>
+                </button>
+
+                <!-- Brand -->
+                <a class="navbar-brand mt-1" href="{% url 'dashboard' %}" style="padding-left: 2.5%">
+                    <img src="https://bcassetcdn.com/public/blog/wp-content/uploads/2021/12/08142321/3d-cube-tech-logo-design-by-connor-fowler-dribbble-1024x1024.jpg"
+                        height="45px" alt="" loading="lazy" />
+                </a>
+                <!-- Right links -->
+                <ul class="navbar-nav ms-auto d-flex flex-row">
+                    <!-- Notification dropdown -->
+                    <!-- <li class="nav-item dropdown p-lg-2">
+                      <a class="nav-link me-3 me-lg-0 mt-1" href="#" id="navbarDropdownMenuLink" role="button"
+                        data-mdb-toggle="dropdown" aria-expanded="false">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="currentColor" class="bi bi-bell-fill"
+                          viewBox="0 0 16 16">
+                          <path
+                            d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z" />
+                        </svg>
+                        <span class="position-absolute translate-middle badge rounded-pill bg-danger">0</span>
+                      </a>
+                    </li> -->
+                    <li class="nav-item dropdown p-lg-2">
+                        <a class="nav-link dropdown-toggle hidden-arrow d-flex align-items-center" href="#"
+                            id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                                class="bi bi-person-circle mt-1" viewBox="0 0 16 16">
+                                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                                <path fill-rule="evenodd"
+                                    d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z" />
+                            </svg>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+                            <li><a class="dropdown-item" href="{% url 'stprofile' %}">My profile</a></li>
+                            <li><a class="dropdown-item" href="{% url 'logoutuser' %}">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!-- Container wrapper -->
+        </nav>
+        <!-- Navbar -->
+    </header>
+    <!--Main Navigation-->
+
+    <!--Main layout-->
+    <main>
+        <div class="container">
+            {% if count == 0 %}
+            <div class="container">
+                <h1 class="text-center">
+                    Welcome {{x.Full_Name}}
+                </h1>
+            </div>
+            {% endif %}
+
+            {% if count == 1 %}
+            <h1 class="text-center">Job Profiles</h1>
+            <div class="container mt-4">
+                <div class="row">
+                    {% for i in x %}
+                    <div class="card" style="width: 25rem; margin-right: 20px; margin-bottom: 20px; padding: 0%;">
+                        <div class="card-header">
+                            <b>Name :</b> {{i.Company_Name}}
+                        </div>
+                        <div class="card-body">
+                            <b>Job Role :</b> {{i.job_role}}<br>
+                            <b>CTC :</b> {{i.CTC}}<br>
+                            <b>Location :</b> {{i.Location}}
+                            <div class="mt-2 text-center">
+                                <a class="btn btn-success" href="{% url 'viewprofile' i.job_id %}">View Profile</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+            {% if count == 2 %}
+            <div class="container">
+                {% if m_count == 0 %}
+                <h1 class="text-center">{{x.Company_Name}}</h1>
+                <div>
+                    <h2 class="ml-3 px-4" style="font-family: 'Times New Roman', Times, serif">
+                        <u><b>Job Description</b></u>
+                    </h2>
+                    <h4 class="px-4"><b>Position Offered :</b> {{x.job_role}}</h4>
+                    <h4 class="px-4"><b>CTC :</b> {{x.CTC}}</h4>
+                    <h4 class="px-4"><b>Location :</b> {{x.Location}}</h4>
+                </div>
+                <hr />
+                <h2 class="ml-3 px-4" style="font-family: 'Times New Roman', Times, serif">
+                    <u><b>Eligibility Criteria</b></u>
+                </h2>
+                <div>
+                    <h4 class="px-4"><b>Xth% :</b> {{x.Xth_perecentage}}</h4>
+                    <h4 class="px-4"><b>XIIth% :</b> {{x.XIIth_percentage}}</h4>
+                    <h4 class="px-4"><b>College CGPA :</b> {{x.College_CGPA}}</h4>
+                </div>
+                <hr />
+                <button type="button" class="btn btn-primary mx-4" data-bs-toggle="modal"
+                    data-bs-target="#exampleModal">
+                    Apply
+                </button>
+
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">
+                                    Apply with Resume
+                                </h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                Resume:
+                                <p><a href="/media/{{y.Resume}}">{{k}}</a></p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                                    Cancel
+                                </button>
+                                <form method="POST" action="">
+                                    {% csrf_token %}
+                                    <button class="btn btn-success" type="submit">
+                                        Submit
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+
+                {% if m_count == 1 %}
+                <div class="alert alert-success text-center">
+                    <h6>{{msg}}</h6>
+                </div>
+                <h1 class="text-center">{{x.Company_Name}}</h1>
+                <div>
+                    <h2 class="ml-3 px-4" style="font-family: 'Times New Roman', Times, serif">
+                        <u><b>Job Description</b></u>
+                    </h2>
+                    <h4 class="px-4"><b>Position Offered :</b> {{x.job_role}}</h4>
+                    <h4 class="px-4"><b>CTC :</b> {{x.CTC}}</h4>
+                    <h4 class="px-4"><b>Location :</b> {{x.Location}}</h4>
+                </div>
+                <hr />
+                <h2 class="ml-3 px-4" style="font-family: 'Times New Roman', Times, serif">
+                    <u><b>Eligibility Criteria</b></u>
+                </h2>
+                <div>
+                    <h4 class="px-4"><b>Xth% :</b> {{x.Xth_perecentage}}</h4>
+                    <h4 class="px-4"><b>XIIth% :</b> {{x.XIIth_percentage}}</h4>
+                    <h4 class="px-4"><b>College CGPA :</b> {{x.College_CGPA}}</h4>
+                </div>
+                <hr />
+                {% if l.Application_status == 'P' %}
+                <button type="button" class="btn btn-primary mx-4" data-bs-toggle="modal"
+                    data-bs-target="#exampleModal">
+                    Withdraw
+                </button>
+                <a class="btn btn-warning">Pending</a>
+                {% endif %}
+
+                {% if l.Application_status == 'A' %}
+
+                <a class="btn btn-success">Accepted</a>
+                {% endif %}
+
+                {% if l.Application_status == 'R' %}
+                <a class="btn btn-danger">Rejected</a>
+                {% endif %}
+
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Withdrawal</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">Are you sure you want to withdraw?</div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                                    No
+                                </button>
+                                <form method="POST" action="{% url 'withdraw' x.job_id %}">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-success">Yes</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+
+                {% if m_count == 2 %}
+                <div class="alert alert-danger text-center">
+                    <h6>{{msg}}</h6>
+                </div>
+                <h1 class="text-center">{{x.Company_Name}}</h1>
+                <div>
+                    <h2 class="ml-3 px-4" style="font-family: 'Times New Roman', Times, serif">
+                        <u><b>Job Description</b></u>
+                    </h2>
+                    <h4 class="px-4"><b>Position Offered :</b> {{x.job_role}}</h4>
+                    <h4 class="px-4"><b>CTC :</b> {{x.CTC}}</h4>
+                    <h4 class="px-4"><b>Location :</b> {{x.Location}}</h4>
+                </div>
+                <hr />
+                <h2 class="ml-3 px-4" style="font-family: 'Times New Roman', Times, serif">
+                    <u><b>Eligibility Criteria</b></u>
+                </h2>
+                <div>
+                    <h4 class="px-4"><b>Xth% :</b> {{x.Xth_perecentage}}</h4>
+                    <h4 class="px-4"><b>XIIth% :</b> {{x.XIIth_percentage}}</h4>
+                    <h4 class="px-4"><b>College CGPA :</b> {{x.College_CGPA}}</h4>
+                </div>
+                <hr />
+                {% endif %}
+            </div>
+            {% endif %}
+
+            {% if count == 3 %}
+            <div class="container">
+                <h1 class="text-center">Applied Jobs</h1>
+                <div class="container mt-4">
+                    <div class="row">
+                        {% for i in x %}
+                        <div class="card" style="width: 25rem; margin-right: 20px; margin-bottom: 20px; padding: 0%;">
+                            <div class="card-header">
+                                <b>Name :</b> {{i.Company_Name}}
+                            </div>
+                            <div class="card-body">
+                                <b>Job Role :</b> {{i.job_role}}<br>
+                                <b>CTC :</b> {{i.CTC}}<br>
+                                <b>Location :</b> {{i.Location}}
+                                <div class="mt-2 text-center">
+                                    <a class="btn btn-success" href="{% url 'viewprofile' i.job_id %}">View Profile</a>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+            {% if count == 4 %}
+            <div class="container">
+                <h2 class="text-center">My Profile</h2>
+                {% load crispy_forms_tags %}
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    {{ y|crispy }}
+                    <div>
+                        <button class="btn btn-primary mt-2 mb-3">Submit</button>
+                        <a class="btn btn-danger mt-2 mb-3" href="{% url 'dashboard' %}">Cancel</a>
+                    </div>
+                </form>
+            </div>
+            {% endif %}
+        </div>
+    </main>
+    <!--Main layout-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
